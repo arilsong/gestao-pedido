@@ -31,7 +31,8 @@ O sistema consiste em duas partes principais:
 ## Tecnologias Utilizadas
 
 ### Frontend
-
+- HTML 5
+- CSS 3
 -  JavaScript
 - Axios para comunicação com a API
 
@@ -41,6 +42,7 @@ O sistema consiste em duas partes principais:
 - Express.js para criação da API
 - Sequelize como ORM para banco de dados
 - JWT para autenticação e autorização
+- MySql
 
 ## Estrutura da API
 
