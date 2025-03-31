@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil da Empresa</title>
+    <link rel="stylesheet" href="../assets/css/perfil_empresa.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Perfil da Empresa</h1>
+        <div id="company-name"></div>
+        <nav>
+            <a href="pedidos.html">Pedidos</a>
+            <a href="historico_pedidos.html">Histórico</a>
+            <a href="login.html" id="logout">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="profile-info">
+            <h2>Informações da Empresa</h2>
+            <form id="profile-form">
+                <div class="form-group">
+                    <label for="company-name-input">Nome da Empresa:</label>
+                    <input type="text" id="company-name-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="company-id">NIF:</label>
+                    <input type="text" id="company-id" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="current-password">Senha Atual:</label>
+                    <input type="password" id="current-password">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Nova Senha:</label>
+                    <input type="password" id="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar Nova Senha:</label>
+                    <input type="password" id="confirm-password">
+                </div>
+                <button type="submit">Atualizar Perfil</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão de Pedidos &copy; 2025</p>
+    </footer>
+
+    <script type="module" src="../assets/js/empresas.js"></script>
+</body>
+</html>

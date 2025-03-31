@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Pedidos</title>
+    <link rel="stylesheet" href="../assets/css/historico_pedidos.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Histórico de Pedidos</h1>
+        <div id="company-name"></div>
+        <nav>
+            <a href="pedidos.html">Novo Pedido</a>
+            <a href="perfil_empresa.html">Perfil</a>
+            <a href="login.html" id="logout">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="orders-history">
+            <div class="filters">
+                <input type="text" id="search" placeholder="Pesquisar pedidos...">
+                <select id="filter-status">
+                    <option value="all">Todos</option>
+                    <option value="pensente">Pendentes</option>
+                    <option value="aprovado">Aprovados</option>
+                    <option value="rejeitado">Rejeitados</option>
+                </select>
+                <button id="export-btn">Exportar Histórico</button>
+            </div>
+            
+            <div id="orders-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão de Pedidos &copy; 2025</p>
+    </footer>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded',async function() {
+            const token = localStorage.getItem('token');
+
+            if(!token){
+                window.location.href = "login.html";
+            }
+
+
+            // carrega todos os pedidos da empresa
+            loadAllOrders();
+
+            // Configura os filtros
+            document.getElementById('search').addEventListener('input', loadAllOrders);
+            document.getElementById('filter-status').addEventListener('change', loadAllOrders);
+
+            document.getElementById('export-btn').addEventListener('click', function() {
+                alert("Funcionalidade de exportação será implementada aqui");
+            });
+        });
+
+        async function loadAllOrders() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const filterStatus = document.getElementById('filter-status').value;
+            let orders;
+
+            try {
+                const response = await axios.get('http://localhost:3000/api/order/order-company', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+
+                orders = response.data.orders
+            } catch (error) {
+                console.log(error)
+            }
+
+                
+           if(orders){
+            let filteredOrders = [...orders];
+            // aplica filtro de status
+            if (filterStatus !== 'all') {
+                filteredOrders = filteredOrders.filter(order => order.status === filterStatus);
+            }
+            
+            // plica pesquisa
+            if (searchTerm) {
+                filteredOrders = filteredOrders.filter(order => 
+                    order.companyName.toLowerCase().includes(searchTerm) || 
+                    order.tipo.toLowerCase().includes(searchTerm) ||
+                    order.descricao.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            renderAllOrders(filteredOrders);
+           }
+        }
+
+        function renderAllOrders(orders) {
+            const container = document.getElementById('orders-list');
+            container.innerHTML = '';
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p class="no-orders">Nenhum pedido encontrado</p>';
+                return;
+            }
+            
+            orders.forEach(order => {
+                const orderElement = document.createElement('div');
+                orderElement.className = 'order-card';
+                orderElement.innerHTML = `
+                    <div class="order-header">
+                        <h3>${order.tipo}</h3>
+                        <span class="order-date">${formatDate(order.data)}</span>
+                    </div>
+                    <div class="order-details">
+                        <p class="order-description">${order.descricao}</p>
+                        <p class="order-value">Valor: €${order.valor.toFixed(2)}</p>
+                        <span class="status-badge ${order.status.toLowerCase()}">${order.status}</span>
+                    </div>
+                `;
+                container.appendChild(orderElement);
+            });
+        }
+
+        function formatDate(dateString) {
+            const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('pt-BR', options);
+        }
+
+        const logoutButtons = document.querySelectorAll('#logout');
+            logoutButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    window.location.href = "login.html";
+                });
+        });
+    </script>
+</body>
+</html>

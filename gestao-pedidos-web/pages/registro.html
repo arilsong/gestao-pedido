@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Sistema de Pedidos</title>
+    <link rel="stylesheet" href="../assets/css/registro.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Registro de Empresa</h1>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="companyName">Nome da Empresa:</label>
+                <input type="text" id="companyName" required>
+            </div>
+            <div class="form-group">
+                <label for="companyNif">NIF:</label>
+                <input type="text" id="companyNif" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Senha:</label>
+                <input type="password" id="confirmPassword" required>
+            </div>
+            <button type="submit">Registrar</button>
+            <p class="login-link">Já tem conta? <a href="login.html">Faça login</a></p>
+            <div id="error-message" class="error-message"></div>
+        </form>
+    </div>
+    <script type="module" src="../assets/js/auth.js"></script>
+    <script  type="module" src="../assets/js/empresas.js"></script>
+</body>
+</html>

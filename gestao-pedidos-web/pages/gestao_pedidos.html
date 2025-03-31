@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Pedidos - Admin</title>
+    <link rel="stylesheet" href="../assets/css/gestao_pedidos.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Painel de Administração</h1>
+        <div id="admin-name"></div>
+        <nav>
+            <a href="config_admin.html">Configurações</a>
+            <a href="login.html" id="logout">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="orders-management">
+            <h2>Gestão de Pedidos</h2>
+            <div class="filters">
+                <input type="text" id="search" placeholder="Pesquisar pedidos...">
+                <select id="filter-status">
+                    <option value="all">Todos</option>
+                    <option value="pendente">Pendentes</option>
+                    <option value="aprovado">Aprovados</option>
+                    <option value="rejeitado">Rejeitados</option>
+                </select>
+            </div>
+            
+            <table id="orders-table">
+                <thead>
+                    <tr>
+                        <th>Empresa</th>
+                        <th>Tipo</th>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão de Pedidos &copy; 2025</p>
+    </footer>
+
+    <script type="module" src="../assets/js/admin.js"></script>
+</body>
+</html>

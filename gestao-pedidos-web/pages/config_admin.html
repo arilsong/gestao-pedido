@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações do Admin</title>
+    <link rel="stylesheet" href="../assets/css/config_admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Configurações do Administrador</h1>
+        <nav>
+            <a href="gestao_pedidos.html">Voltar</a>
+            <a href="login.html" id="logout">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="admin-settings">
+            <h2>Configurações da Conta</h2>
+            <form id="admin-settings-form">
+                <div class="form-group">
+                    <label for="admin-name">Nome:</label>
+                    <input type="text" id="admin-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-email">E-mail:</label>
+                    <input type="email" id="admin-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="current-password">Senha Atual:</label>
+                    <input type="password" id="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Nova Senha:</label>
+                    <input type="password" id="new-password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar Nova Senha:</label>
+                    <input type="password" id="confirm-password">
+                </div>
+                <button type="submit">Salvar Alterações</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão de Pedidos &copy; 2025</p>
+    </footer>
+
+    <script type="module">
+        import checkAuhtentication from "./checkAuhtentication.js";
+        document.addEventListener('DOMContentLoaded', async function() {
+            await checkAuhtentication()
+
+            const token = localStorage.getItem('token');
+            let user;
+
+            if(!token){
+                window.location.href = "login.html";
+            }
+
+            try {
+                const response = await axios.get('http://localhost:3000/api/user/get', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                user = response.data;
+            } catch (error) {
+                console.log(error)
+            }
+
+            document.getElementById('admin-name').value = user.name;
+            document.getElementById('admin-email').value = user.email;
+
+
+            document.getElementById('admin-settings-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                updateAdminSettings();
+            });
+        });
+
+        function updateAdminSettings() {
+            const currentPassword = document.getElementById('current-password').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            
+
+            if (newPassword !== confirmPassword) {
+                showNotification("As senhas não coincidem!");
+                return;
+            }
+            
+            // atualiza os dados
+            admin.name = document.getElementById('admin-name').value;
+            admin.email = document.getElementById('admin-email').value;
+            
+            
+            showNotification("Configurações atualizadas com sucesso!");
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Pedido - Sistema de Pedidos</title>
+    <link rel="stylesheet" href="../assets/css/pedidos.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestão de Pedidos</h1>
+        <div id="company-name"></div>
+        <nav>
+            <a href="historico_pedidos.html">Histórico</a>
+            <a href="perfil_empresa.html">Perfil</a>
+            <a href="login.html" id="logout">Sair</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="new-order">
+            <h2>Novo Pedido</h2>
+            <form id="order-form">
+                <div class="form-group">
+                    <label for="order-type">Tipo de Pedido:</label>
+                    <select id="order-type" required>
+                        <option value="">Selecione...</option>
+                        <option value="Aquisição de Materiais">Aquisição de Materiais</option>
+                        <option value="Solicitação de Serviços">Solicitação de Serviços</option>
+                        <option value="Pedido de Reembolso">Pedido de Reembolso</option>
+                        <option value="Pedido de Formação">Pedido de Formação</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="order-description">Descrição:</label>
+                    <textarea id="order-description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="order-value">Valor (CVE):</label>
+                    <input type="number" id="order-value" step="0.01" min="0" required>
+                </div>
+                <button type="submit">Enviar Pedido</button>
+            </form>
+        </section>
+
+        <section class="recent-orders">
+            <h2>Pedidos Recentes</h2>
+            <div id="recent-orders"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Gestão de Pedidos &copy; 2025</p>
+    </footer>
+
+    <script type="module" src="../assets/js/pedidos.js"></script>
+</body>
+</html>
