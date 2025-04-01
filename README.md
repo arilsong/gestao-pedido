@@ -59,3 +59,13 @@ POST /user/register - Registra uma nova empresa
 POST /user/login - Autentica um usuário
 GET /user/get - Obtém dados do usuário
 PUT /user/update - Atualiza dados do usuário
+
+## Como Executar o Projeto
+
+- ter node.js instaldo
+- criar a base de gestao_pedido
+- ir no cmd na pasta raiz do "getao de pedidos api"
+- no cmd usar o comando *"npm intall"* para baixar as dependencias
+- usar o comando *"node src/seed.js"* para sinconizar e criar tabelas na base de dados
+- depois é so usar o comando *"npm start"* para iniciar o servidor
+- com o servidor inciado é so abrir o front-end na *live editor* do vscode por causa do cors 
